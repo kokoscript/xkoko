@@ -11,8 +11,8 @@ Window win;
 GC gc;
 XSizeHints sizeHints = *XAllocSizeHints();
 
-#define WIN_WIDTH 287
-#define WIN_HEIGHT 293
+#define WIN_WIDTH 291
+#define WIN_HEIGHT 316
 
 void init_x() {
 	unsigned long black, white;
