@@ -1,6 +1,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xos.h>
+#include <X11/extensions/shape.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -10,8 +11,8 @@ Window win;
 GC gc;
 XSizeHints sizeHints = *XAllocSizeHints();
 
-#define WIN_WIDTH 232
-#define WIN_HEIGHT 242
+#define WIN_WIDTH 287
+#define WIN_HEIGHT 293
 
 void init_x() {
 	unsigned long black, white;
@@ -25,6 +26,11 @@ void init_x() {
 
    	win = XCreateSimpleWindow(disp, DefaultRootWindow(disp), 0, 0, WIN_WIDTH, WIN_HEIGHT, 5, BlackPixel(disp, screen), WhitePixel(disp, screen));
 
+	Pixmap bitmap;
+	unsigned int bmpWidth, bmpHeight;
+	XReadBitmapFile(disp, win, "koko-mask.xbm", &bmpWidth, &bmpHeight, &bitmap, NULL, NULL);
+	XShapeCombineMask(disp, win, ShapeBounding, 0, 0, bitmap, ShapeSet);
+
 	XSetStandardProperties(disp, win, "xkoko", "xkoko", None, NULL, 0, NULL);
 	sizeHints.flags = PMinSize | PMaxSize | PSize;
 	sizeHints.min_width = WIN_WIDTH;
@@ -35,13 +41,11 @@ void init_x() {
 
 	XSelectInput(disp, win, ExposureMask | ButtonPress | PointerMotionMask);
 
-    gc = XCreateGC(disp, win, 0,0);        
+	gc = XCreateGC(disp, win, 0,0);        
 
 	XClearWindow(disp, win);
 	XMapRaised(disp, win);
 
-	Pixmap bitmap;
-	unsigned int bmpWidth, bmpHeight;
 	XReadBitmapFile(disp, win, "koko.xbm", &bmpWidth, &bmpHeight, &bitmap, NULL, NULL);
 	
 	// Check for window close/button events
