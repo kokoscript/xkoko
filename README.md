@@ -4,4 +4,4 @@ An X11 program that shows a single drawing of my fursona, as an additional bonus
 
 ![artwork of my fursona entering through a window on a twm setup](https://raw.githubusercontent.com/kokoscript/xkoko/main/koko-twm.png)
 
-The "outside the window" effect isn't implemented since I couldn't find any documentation on doing that, but if you'd like to contribute it feel free to open a PR~ 
+The "outside the window" effect is implemented, but will not use your WM's borders; the twm window from the art is used instead.
